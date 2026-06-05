@@ -21,7 +21,7 @@ if AutoSetVersion == 'False':
 elif AutoSetVersion == 'True':
     Vers = Version.lower()
 File2 = os.path.basename(File1)
-File3 = File1.lower().strip(".its")
+File3 = File1.lower().split('.', 1)[0]
 OutputFile = open(File3 + ".txt", 'w', encoding="UTF-8")
 ITSFile = open(File3 + ".ITS", 'rb')
 if Vers == 'p':
@@ -169,7 +169,10 @@ def test():
                         pass
                     else: #Iterate value
                         index+=1
-            Text = "Container is " + str(ContState[ContStateID]) + "\n"
+            try:
+                Text = "Container is " + str(ContState[ContStateID]) + "\n"
+            except IndexError:
+                Text = "Container is unknown\n"
             OutputFile.write(Text)
             #print(Text)
             if PrintSize == 'True':
